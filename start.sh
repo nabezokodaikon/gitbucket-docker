@@ -1,8 +1,9 @@
 #!/bin/bash
 
-if [ -d "${HOME}/.rbenv" ]; then
+if [ -d "${PWD}/data" ]; then
     echo "data directory exists."
 else
+    echo "data directory create."
     mkdir ${PWD}/data
 fi
 
