@@ -1,9 +1,9 @@
-#bin/bash
+#!bin/bash
 
 if [ -d "${HOME}/.rbenv" ]; then
     echo "data directory exists."
 else
-    mkdir ${$PWD}/data
+    mkdir ${PWD}/data
 fi
 
 docker stop gitbucket
