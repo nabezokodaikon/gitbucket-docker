@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 
 if [ -d "${HOME}/.rbenv" ]; then
     echo "data directory exists."
