@@ -17,9 +17,6 @@ RUN apt-get update && \
     apt-get dist-upgrade -y
 RUN apt-get upgrade
 
-# 日本語パッケージをインストールします。
-RUN apt-get install -y language-pack-ja
-
 # タイムゾーンを日本標準時刻に設定します。
 RUN cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 RUN echo 'Asia/Tokyo' > /etc/timezone
@@ -27,20 +24,20 @@ RUN echo 'Asia/Tokyo' > /etc/timezone
 # ハードウェアクロックをローカルタイムに設定します。
 RUN sed -e 's;UTC=yes;UTC=no;' -i /etc/default/rcS
 
-# ロケールを日本語に設定します。
-RUN echo 'LC_ALL=ja_JP.UTF-8' > /etc/default/locale
-RUN echo 'LANG=ja_JP.UTF-8' >> /etc/default/locale
-RUN echo locale-gen ja_JP.UTF-8
-
-# デフォルトロケールを日本語向けに設定します。
-ENV LC_ALL ja_JP.UTF-8
-ENV LANG j_JP.UTF-8
-
 # java をインストールします。
 RUN apt-get install -q -y openjdk-7-jre-headless
 RUN apt-get clean
 
 RUN wget https://github.com/takezoe/gitbucket/releases/download/2.4.1/gitbucket.war -P /opt
+
+RUN echo "#`date`" > /root/.gitbucket/gitbucket.conf
+RUN echo gravatar=true >> /root/.gitbucket/gitbucket.conf
+RUN echo ssh=false >> /root/.gitbucket/gitbucket.conf
+RUN ldap_authentication=false >> /root/.gitbucket/gitbucket.conf
+RUN notification=false >> /root/.gitbucket/gitbucket.conf
+RUN allow_account_registration=false >> /root/.gitbucket/gitbucket.conf
+RUN base_url=https\://133.242.167.158\:58080 >> /root/.gitbucket/gitbucket.conf
+RUN echo base_url=https\\://`ip addr show eth0 | grep -o 'inet [0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+' | grep -o [0-9].*`\\:58080 >> /root/.gitbucket/gitbucket.conf
 
 VOLUME /root/.gitbucket
 EXPOSE 8080
