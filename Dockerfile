@@ -30,6 +30,7 @@ RUN apt-get clean
 
 RUN wget https://github.com/takezoe/gitbucket/releases/download/2.4.1/gitbucket.war -P /opt
 
+RUN mkdir /root/.gitbucket
 RUN echo "#`date`" > /root/.gitbucket/gitbucket.conf
 RUN echo gravatar=true >> /root/.gitbucket/gitbucket.conf
 RUN echo ssh=false >> /root/.gitbucket/gitbucket.conf
