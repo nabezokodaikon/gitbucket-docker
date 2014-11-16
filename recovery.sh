@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 
 if [ -e "${PWD}/backup/backup.tar" ]; then
     echo "Backup file exists."
