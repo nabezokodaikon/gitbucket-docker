@@ -15,7 +15,6 @@ else
     mkdir $(pwd)/backup
 fi
 
-backupId=$(docker run --volumes-from gitbucket-storage -v $(pwd):/backup nabezokodaikon/ubuntu:storage tar cvf /backup/backup.tar /root/.gitbucket)
-docker rm ${backupId}
+docker run --volumes-from gitbucket-storage -v $(pwd)/backup:/backup nabezokodaikon/ubuntu:storage tar cvf /backup/backup.tar /root/.gitbucket
 
 exit 0
