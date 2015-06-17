@@ -31,14 +31,16 @@ RUN apt-get clean
 RUN wget https://github.com/takezoe/gitbucket/releases/download/3.3/gitbucket.war -P /opt
 
 RUN mkdir /root/.gitbucket
-RUN echo "#`date`" > /root/.gitbucket/gitbucket.conf
-RUN echo gravatar=true >> /root/.gitbucket/gitbucket.conf
-RUN echo ssh=false >> /root/.gitbucket/gitbucket.conf
-RUN ldap_authentication=false >> /root/.gitbucket/gitbucket.conf
-RUN notification=false >> /root/.gitbucket/gitbucket.conf
-RUN allow_account_registration=false >> /root/.gitbucket/gitbucket.conf
-RUN base_url=https\://133.242.167.158\:58080 >> /root/.gitbucket/gitbucket.conf
-RUN echo base_url=https\\://`ip addr show eth0 | grep -o 'inet [0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+' | grep -o [0-9].*`\\:58080 >> /root/.gitbucket/gitbucket.conf
+
+RUN cat << EOF > /root/.gitbucket/gitbucket.conf
+"#`date`"
+gravatar=true
+ssh=false
+ldap_authentication=false
+notification=false
+allow_account_registration=false
+base_url=https\\://`ip addr show eth0 | grep -o 'inet [0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+' | grep -o [0-9].*`\\:80 >> /root/.gitbucket/gitbucket.conf
+EOF
 
 VOLUME /root/.gitbucket
 EXPOSE 8080
