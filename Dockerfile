@@ -14,8 +14,10 @@ RUN wget -q https://www.ubuntulinux.jp/ubuntu-ja-archive-keyring.gpg -O- | apt-k
 
 # システムを更新します。
 RUN apt-get update && \
-    apt-get dist-upgrade -y
-RUN apt-get upgrade
+    apt-get upgrade -y && \
+    apt-get dist-upgrade -y && \
+    apt-get autoremove --purge -y && \
+    apt-get autoclean -y
 
 # タイムゾーンを日本標準時刻に設定します。
 RUN cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
@@ -29,9 +31,7 @@ RUN apt-get install -q -y openjdk-7-jre-headless
 RUN apt-get clean
 
 RUN wget https://github.com/takezoe/gitbucket/releases/download/3.3/gitbucket.war -P /opt
-
 RUN mkdir /root/.gitbucket
-
 RUN cat << EOF > /root/.gitbucket/gitbucket.conf
 "#`date`"
 gravatar=true
