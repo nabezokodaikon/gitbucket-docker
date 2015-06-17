@@ -25,18 +25,10 @@ RUN apt-get clean
 
 RUN wget https://github.com/takezoe/gitbucket/releases/download/3.3/gitbucket.war -P /opt
 RUN mkdir /root/.gitbucket
-RUN cat << EOF > /root/.gitbucket/gitbucket.conf
-"#`date`"
-gravatar=true
-ssh=false
-ldap_authentication=false
-notification=false
-allow_account_registration=false
-base_url=https\\://`ip addr show eth0 | grep -o 'inet [0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+' | grep -o [0-9].*`\\:80 >> /root/.gitbucket/gitbucket.conf
-EOF
+ADD ./gitbucket.conf /root/.gitbucket/gitbucket.conf
 
 VOLUME /root/.gitbucket
 EXPOSE 8080
 
-CMD ["java", "-jar", "/opt/gitbucket.war"]
+CMD ["java", "-jar", "/opt/gitbucket.war", "--port", "8080"]
 
