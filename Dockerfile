@@ -28,7 +28,7 @@ RUN sed -e 's;UTC=yes;UTC=no;' -i /etc/default/rcS
 RUN apt-get install -q -y openjdk-7-jre-headless
 RUN apt-get clean
 
-RUN wget https://github.com/takezoe/gitbucket/releases/download/2.4.1/gitbucket.war -P /opt
+RUN wget https://github.com/takezoe/gitbucket/releases/download/3.3/gitbucket.war -P /opt
 
 RUN mkdir /root/.gitbucket
 RUN echo "#`date`" > /root/.gitbucket/gitbucket.conf
