@@ -17,8 +17,10 @@ RUN echo 'Asia/Tokyo' > /etc/timezone
 # ハードウェアクロックをローカルタイムに設定します。
 RUN sed -e 's;UTC=yes;UTC=no;' -i /etc/default/rcS
 
-# java をインストールします。
-RUN apt-get install -q -y openjdk-7-jre-headless
+# パッケージインストールします。
+RUN apt-get install -q -y \
+    wget \
+    openjdk-7-jre-headless
 RUN apt-get clean
 
 RUN wget https://github.com/takezoe/gitbucket/releases/download/3.3/gitbucket.war -P /opt
